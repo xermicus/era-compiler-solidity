@@ -86,7 +86,7 @@ pub fn yul(
         optimizer_settings,
         is_system_mode,
         include_metadata_hash,
-        zkevm_assembly::RunningVmEncodingMode::Production,
+        false,
         debug_config,
     )?;
 
@@ -118,7 +118,7 @@ pub fn llvm_ir(
         optimizer_settings,
         is_system_mode,
         include_metadata_hash,
-        zkevm_assembly::RunningVmEncodingMode::Production,
+        false,
         debug_config,
     )?;
 
@@ -149,7 +149,7 @@ pub fn zkasm(
         optimizer_settings,
         false,
         include_metadata_hash,
-        zkevm_assembly::RunningVmEncodingMode::Production,
+        false,
         debug_config,
     )?;
 
@@ -239,7 +239,7 @@ pub fn standard_output(
         optimizer_settings,
         is_system_mode,
         include_metadata_hash,
-        zkevm_assembly::RunningVmEncodingMode::Production,
+        false,
         debug_config,
     )?;
 
@@ -319,7 +319,7 @@ pub fn standard_json(
             optimizer_settings,
             is_system_mode,
             include_metadata_hash,
-            zkevm_assembly::RunningVmEncodingMode::Production,
+            false,
             debug_config,
         )?;
         build.write_to_standard_json(&mut solc_output, &solc_version, &zksolc_version)?;

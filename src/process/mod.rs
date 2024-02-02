@@ -31,7 +31,7 @@ pub fn run() -> anyhow::Result<()> {
 
     let input: Input = compiler_common::deserialize_from_slice(buffer.as_slice())?;
     if input.enable_test_encoding {
-        zkevm_assembly::set_encoding_mode(zkevm_assembly::RunningVmEncodingMode::Testing);
+        todo!()
     }
     let result = input.contract.compile(
         input.project,
