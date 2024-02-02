@@ -881,8 +881,9 @@ impl FunctionCall {
                 Ok(Some(arguments[0]))
             }
 
-            Name::Address => todo!(),
-            Name::Caller => todo!(),
+            Name::Address | Name::Caller => {
+                Ok(Some(context.integer_const(256, 0).as_basic_value_enum()))
+            }
 
             Name::CallValue => compiler_llvm_context::eravm_evm_ether_gas::value(context).map(Some),
             Name::Gas => compiler_llvm_context::eravm_evm_ether_gas::gas(context).map(Some),
