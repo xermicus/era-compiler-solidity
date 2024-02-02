@@ -140,68 +140,7 @@ impl FunctionCall {
                     compiler_llvm_context::EraVMFunction::ZKSYNC_NEAR_CALL_ABI_PREFIX,
                 ) && context.is_system_mode() =>
             {
-                let mut values = Vec::with_capacity(self.arguments.len());
-                for argument in self.arguments.into_iter().rev() {
-                    let value = argument.into_llvm(context)?.expect("Always exists").value;
-                    values.push(value);
-                }
-                values.reverse();
-                let function = context.get_function(name.as_str()).ok_or_else(|| {
-                    anyhow::anyhow!("{} Undeclared function `{}`", location, name)
-                })?;
-                let r#return = function.borrow().r#return();
-
-                if let compiler_llvm_context::EraVMFunctionReturn::Compound { pointer, .. } =
-                    r#return
-                {
-                    let pointer = context.build_alloca(
-                        pointer.r#type,
-                        format!("{name}_near_call_return_pointer_argument").as_str(),
-                    );
-                    context.build_store(pointer, pointer.r#type.const_zero());
-                    values.insert(1, pointer.value.as_basic_value_enum());
-                }
-
-                let function_pointer = function
-                    .borrow()
-                    .declaration()
-                    .value
-                    .as_global_value()
-                    .as_pointer_value();
-                values.insert(0, function_pointer.as_basic_value_enum());
-
-                let expected_arguments_count =
-                    function.borrow().declaration().value.count_params() as usize;
-                if expected_arguments_count != (values.len() - 2) {
-                    anyhow::bail!(
-                        "{} Function `{}` expected {} arguments, found {}",
-                        location,
-                        name,
-                        expected_arguments_count,
-                        values.len()
-                    );
-                }
-
-                let return_value = context.build_invoke_near_call_abi(
-                    function.borrow().declaration(),
-                    values,
-                    format!("{name}_near_call").as_str(),
-                );
-
-                if let compiler_llvm_context::EraVMFunctionReturn::Compound { pointer, .. } =
-                    r#return
-                {
-                    let pointer = compiler_llvm_context::EraVMPointer::new(
-                        pointer.r#type,
-                        compiler_llvm_context::EraVMAddressSpace::Stack,
-                        return_value.expect("Always exists").into_pointer_value(),
-                    );
-                    let return_value = context
-                        .build_load(pointer, format!("{name}_near_call_return_value").as_str());
-                    Ok(Some(return_value))
-                } else {
-                    Ok(return_value)
-                }
+                unimplemented!();
             }
             Name::UserDefined(name) => {
                 let mut values = Vec::with_capacity(self.arguments.len());
@@ -530,28 +469,7 @@ impl FunctionCall {
                 )
                 .map(|_| None)
             }
-            Name::LoadImmutable => {
-                let mut arguments = self.pop_arguments::<D, 1>(context)?;
-                let key = arguments[0].original.take().ok_or_else(|| {
-                    anyhow::anyhow!("{} `load_immutable` literal is missing", location)
-                })?;
-
-                if key.as_str() == "library_deploy_address" {
-                    return Ok(context.build_call(
-                        context.intrinsics().code_source,
-                        &[],
-                        "library_deploy_address",
-                    ));
-                }
-
-                let offset = context
-                    .solidity_mut()
-                    .get_or_allocate_immutable(key.as_str());
-
-                let index = context.field_const(offset as u64);
-
-                compiler_llvm_context::eravm_evm_immutable::load(context, index).map(Some)
-            }
+            Name::LoadImmutable => todo!(),
             Name::SetImmutable => {
                 let mut arguments = self.pop_arguments::<D, 3>(context)?;
                 let key = arguments[1].original.take().ok_or_else(|| {
@@ -963,8 +881,8 @@ impl FunctionCall {
                 Ok(Some(arguments[0]))
             }
 
-            Name::Address => Ok(context.build_call(context.intrinsics().address, &[], "address")),
-            Name::Caller => Ok(context.build_call(context.intrinsics().caller, &[], "caller")),
+            Name::Address => todo!(),
+            Name::Caller => todo!(),
 
             Name::CallValue => compiler_llvm_context::eravm_evm_ether_gas::value(context).map(Some),
             Name::Gas => compiler_llvm_context::eravm_evm_ether_gas::gas(context).map(Some),
@@ -974,14 +892,7 @@ impl FunctionCall {
                 let address = arguments[0].into_int_value();
                 compiler_llvm_context::eravm_evm_ether_gas::balance(context, address).map(Some)
             }
-            Name::SelfBalance => {
-                let address = context
-                    .build_call(context.intrinsics().address, &[], "self_balance_address")
-                    .expect("Always exists")
-                    .into_int_value();
-
-                compiler_llvm_context::eravm_evm_ether_gas::balance(context, address).map(Some)
-            }
+            Name::SelfBalance => todo!(),
 
             Name::GasLimit => {
                 compiler_llvm_context::eravm_evm_contract_context::gas_limit(context).map(Some)

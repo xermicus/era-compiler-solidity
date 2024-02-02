@@ -174,11 +174,7 @@ where
                     crate::evmla::assembly::instruction::stack::push(context, value).map(Some)
                 }
             }
-            InstructionName::PUSHDEPLOYADDRESS => Ok(context.build_call(
-                context.intrinsics().code_source,
-                &[],
-                "contract_deploy_address",
-            )),
+            InstructionName::PUSHDEPLOYADDRESS => todo!(),
 
             InstructionName::DUP1 => crate::evmla::assembly::instruction::stack::dup(
                 context,
@@ -1113,12 +1109,8 @@ where
                 .map(Some)
             }
 
-            InstructionName::ADDRESS => {
-                Ok(context.build_call(context.intrinsics().address, &[], "address"))
-            }
-            InstructionName::CALLER => {
-                Ok(context.build_call(context.intrinsics().caller, &[], "caller"))
-            }
+            InstructionName::ADDRESS => todo!(),
+            InstructionName::CALLER => todo!(),
 
             InstructionName::CALLVALUE => {
                 compiler_llvm_context::eravm_evm_ether_gas::value(context).map(Some)
@@ -1132,14 +1124,7 @@ where
                 let address = arguments[0].into_int_value();
                 compiler_llvm_context::eravm_evm_ether_gas::balance(context, address).map(Some)
             }
-            InstructionName::SELFBALANCE => {
-                let address = context
-                    .build_call(context.intrinsics().address, &[], "self_balance_address")
-                    .expect("Always exists")
-                    .into_int_value();
-
-                compiler_llvm_context::eravm_evm_ether_gas::balance(context, address).map(Some)
-            }
+            InstructionName::SELFBALANCE => todo!(),
 
             InstructionName::GASLIMIT => {
                 compiler_llvm_context::eravm_evm_contract_context::gas_limit(context).map(Some)
