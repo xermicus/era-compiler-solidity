@@ -73,7 +73,7 @@ impl Project {
         is_system_mode: bool,
         include_metadata_hash: bool,
         bytecode_encoding_testing: bool,
-        debug_config: Option<compiler_llvm_context::DebugConfig>,
+        debug_config: Option<era_compiler_llvm_context::DebugConfig>,
     ) -> anyhow::Result<Build> {
         let project = self.clone();
         let results: BTreeMap<String, anyhow::Result<ContractBuild>> = self

@@ -50,7 +50,7 @@ fn main_inner() -> anyhow::Result<()> {
         .build_global()
         .expect("Thread pool configuration failure");
     inkwell::support::enable_llvm_pretty_stack_trace();
-    compiler_llvm_context::initialize_target(compiler_llvm_context::Target::PVM); // TODO: pass from CLI
+    era_compiler_llvm_context::initialize_target(era_compiler_llvm_context::Target::PVM); // TODO: pass from CLI
 
     if arguments.recursive_process {
         return era_compiler_solidity::run_process();

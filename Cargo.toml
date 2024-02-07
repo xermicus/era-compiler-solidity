@@ -36,9 +36,9 @@ sha3 = "0.10"
 md5 = "0.7"
 inkwell = { version = "0.2.0", default-features = false, features = ["llvm16-0", "no-libffi-linking", "target-riscv"] }
 
-compiler-common = { git = "https://github.com/matter-labs/era-compiler-common", branch = "main" }
+era-compiler-common = { git = "https://github.com/matter-labs/era-compiler-common", branch = "main" }
 #compiler-llvm-context = { git = "https://github.com/xermicus/era-compiler-llvm-context", branch = "pvm" }
-compiler-llvm-context = { path = "../era-compiler-llvm-context" }
+era-compiler-llvm-context = { path = "../era-compiler-llvm-context" }
 
 
 [target.'cfg(target_env = "musl")'.dependencies]

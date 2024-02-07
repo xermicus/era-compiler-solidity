@@ -495,6 +495,20 @@ impl FunctionCall {
                 )
                 .map(|_| None)
             }
+            Name::TLoad => {
+                let _arguments = self.pop_arguments_llvm::<D, 1>(context)?;
+                anyhow::bail!(
+                    "{} The `TLOAD` instruction is not supported until zkVM v1.5.0",
+                    location
+                );
+            }
+            Name::TStore => {
+                let _arguments = self.pop_arguments_llvm::<D, 2>(context)?;
+                anyhow::bail!(
+                    "{} The `TSTORE` instruction is not supported until zkVM v1.5.0",
+                    location
+                );
+            }
             Name::LoadImmutable => todo!(),
             Name::SetImmutable => {
                 let mut arguments = self.pop_arguments::<D, 3>(context)?;
