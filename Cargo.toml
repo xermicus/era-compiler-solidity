@@ -1,6 +1,6 @@
 [package]
-name = "compiler-solidity"
-version = "1.3.23"
+name = "era-compiler-solidity"
+version = "1.4.0"
 authors = [
     "Oleksandr Zarudnyi <a.zarudnyy@matterlabs.dev>",
 ]
@@ -39,6 +39,7 @@ inkwell = { version = "0.2.0", default-features = false, features = ["llvm16-0",
 compiler-common = { git = "https://github.com/matter-labs/era-compiler-common", branch = "main" }
 #compiler-llvm-context = { git = "https://github.com/xermicus/era-compiler-llvm-context", branch = "pvm" }
 compiler-llvm-context = { path = "../era-compiler-llvm-context" }
+
 
 [target.'cfg(target_env = "musl")'.dependencies]
 mimalloc = { version = "*", default-features = false }

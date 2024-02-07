@@ -29,7 +29,7 @@ pub fn run() -> anyhow::Result<()> {
     let mut buffer = Vec::with_capacity(16384);
     stdin.read_to_end(&mut buffer).expect("Stdin reading error");
 
-    let input: Input = compiler_common::deserialize_from_slice(buffer.as_slice())?;
+    let input: Input = era_compiler_common::deserialize_from_slice(buffer.as_slice())?;
     if input.enable_test_encoding {
         todo!()
     }
@@ -96,7 +96,7 @@ pub fn call(input: Input) -> anyhow::Result<Output> {
         );
     }
 
-    let output: Output = compiler_common::deserialize_from_slice(output.stdout.as_slice())
+    let output: Output = era_compiler_common::deserialize_from_slice(output.stdout.as_slice())
         .map_err(|error| {
             anyhow::anyhow!(
                 "{:?} subprocess output parsing error: {}",
