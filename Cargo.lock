@@ -842,15 +842,15 @@ dependencies = [
 
 [[package]]
 name = "polkavm-common"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9ab2eb1a47b894c76723df65bd813995a0e93bb413b862bcff816c2e25e0d68"
+checksum = "92c99f7eee94e7be43ba37eef65ad0ee8cbaf89b7c00001c3f6d2be985cb1817"
 
 [[package]]
 name = "polkavm-linker"
-version = "0.7.0"
+version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d2108a68e2213f32d86418e79b0ae118d97cb30f500d3f7cda301f8a9e13ba04"
+checksum = "fdec1451cb18261d5d01de82acc15305e417fb59588cdcb3127d3dcc9672b925"
 dependencies = [
  "gimli",
  "hashbrown 0.14.3",
