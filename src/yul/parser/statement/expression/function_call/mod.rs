@@ -896,7 +896,7 @@ impl FunctionCall {
                             as u64,
                     ),
                     "datacopy_contract_hash_offset",
-                );
+                )?;
                 era_compiler_llvm_context::eravm_evm_memory::store(
                     context,
                     offset,

@@ -95,13 +95,13 @@ where
             condition,
             context.field_type(),
             "for_condition_extended",
-        );
+        )?;
         let condition = context.builder().build_int_compare(
             inkwell::IntPredicate::NE,
             condition,
             context.field_const(0),
             "for_condition_compared",
-        );
+        )?;
         context.build_conditional_branch(condition, body_block, join_block);
 
         context.push_loop(body_block, increment_block, join_block);

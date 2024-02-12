@@ -177,7 +177,7 @@ where
             scrutinee.expect("Always exists").to_llvm().into_int_value(),
             default_block,
             branches.as_slice(),
-        );
+        )?;
 
         context.set_basic_block(join_block);
 

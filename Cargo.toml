@@ -34,7 +34,7 @@ hex = "0.4"
 num = "0.4"
 sha3 = "0.10"
 md5 = "0.7"
-inkwell = { version = "0.2.0", default-features = false, features = ["llvm16-0", "no-libffi-linking", "target-riscv"] }
+inkwell = { version = "0.4.0", default-features = false, features = ["llvm16-0", "no-libffi-linking", "target-riscv"] }
 
 era-compiler-common = { git = "https://github.com/matter-labs/era-compiler-common", branch = "main" }
 #compiler-llvm-context = { git = "https://github.com/xermicus/era-compiler-llvm-context", branch = "pvm" }

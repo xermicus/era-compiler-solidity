@@ -57,7 +57,7 @@ where
         condition.into_int_value(),
         context.field_const(0),
         format!("conditional_{block_key}_condition_compared").as_str(),
-    );
+    )?;
 
     let then_block = context
         .current_function()
